@@ -3,7 +3,7 @@ var rows = $(".row");
 var saveButtons =  $("button");
 var userText = $("textareas");
 var userInput = "";
-var timeBlocksHour= $(".hour").attr("time-value");
+var timeBlocksHour= $(".hour").attr("data-id")
 console.log(timeBlocksHour);
 
 // Show Time
@@ -17,17 +17,15 @@ var currentHour = moment().format();
 console.log(currentHour);
 
 if (currentHour < timeBlocksHour) {
-    $(".time-block").addClass(".future");
+    $(".row").addClass(".future");
 }
-if (currentHour > timeBlocksHour) {
-    $(".time-block").addClass(".past");
-}
-
-if (currentHour == timeBlocksHour) {
-    $(".time-block").addClass(".present");
+else if (currentHour > timeBlocksHour) {
+    $(".row").addClass(".past");
 }
 
-
+else {(currentHour == timeBlocksHour) 
+    $(".row").addClass(".past");
+}
 
 
 
