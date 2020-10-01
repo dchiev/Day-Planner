@@ -1,35 +1,50 @@
 var currentDay = $("#currentDay");
 var rows = $(".row");
 var saveButtons =  $("button");
-var userText = $("textareas");
+var userText = $("textarea");
 var userInput = "";
-var timeBlocksHour= $(".hour").attr("data-id")
-console.log(timeBlocksHour);
+var timeBlocksHour= $(".time-block").attr("data-id")
+
+
+var timeBlocksArray = [];
+
+// for loop to grab eat data-id from the row that corresponds with the current time. 
+
+
+
+console.log(timeBlocksArray)
 
 // Show Time
 var currentTime = moment().format('MMMM Do YYYY, h:mm:ss a');
 currentDay.text(currentTime)
 
+console.log(currentTime)
 
-// Time Block Colors = present/ past/ future
 
-var currentHour = moment().format();
-console.log(currentHour);
+// Time Block Colors = present/ past/ future checking against time
 
-if (currentHour < timeBlocksHour) {
-    $(".row").addClass(".future");
+
+const now = new Date();
+var currentHour = now.getHours();
+
+console.log(currentHour)
+
+for (let i = 9; i < 18; i++) {
+    console.log(currentHour < i);
+
+    if (currentHour < i) {
+        $("#" + i).addClass("future");
+    }
+    else if (currentHour > i) {
+        $("#" + i).addClass("past");
+    }
+    
+    else {(currentHour == i) 
+        $("#" + i).addClass("present");
+    }
 }
-else if (currentHour > timeBlocksHour) {
-    $(".row").addClass(".past");
-}
 
-else {(currentHour == timeBlocksHour) 
-    $(".row").addClass(".past");
-}
-
-
-
-
+ 
 
 
 // Saving text area to local storage + prevent default.
@@ -37,7 +52,8 @@ else {(currentHour == timeBlocksHour)
 
 
 var savedText = localStorage.getItem (userText);
-$(saveButtons).on("click", function (){
-    userText.text = savedText;
-    localStorag.setItem("text", userText);
+$(saveButtons).on("click", function (event){
+    event.preventDefault();
+    userInput = userText.val();
+    localStorag.setItem("text", userInput);
 });
